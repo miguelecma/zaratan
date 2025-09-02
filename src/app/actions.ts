@@ -8,9 +8,10 @@ const qstashClient = new Client({
 
 export async function startBackgroundJob() {
   await qstashClient.publishJSON({
-    url: "https://firstqstashmessage.requestcatcher.com/test",
+    url: "https://zaratan.vercel.app/api/register",
     body: {
-      hello: "world",
+      user: "zaratan",
+      order: [{name: "INQUISICIÓN", quantity: 1}]
     },
   })
 }
