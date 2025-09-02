@@ -1,9 +1,43 @@
+"use client"
 import Image from "next/image";
+import StartJob from "./components/StartJob";
+import {startBackgroundJob} from "./actions";
+
 
 export default function Home() {
+  const handleClick = async () => await startBackgroundJob();
+
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+        <map name="infographic">
+          <area
+            shape="poly"
+            coords="130,147,200,107,254,219,130,228"
+            href="https://developer.mozilla.org/docs/Web/HTML"
+            alt="HTML"
+          />
+          <area
+            shape="poly"
+            coords="130,147,130,228,6,219,59,107"
+            href="https://developer.mozilla.org/docs/Web/CSS"
+            alt="CSS"
+          />
+          <area
+            shape="poly"
+            coords="130,147,200,107,130,4,59,107"
+            href="https://developer.mozilla.org/docs/Web/JavaScript"
+            alt="JavaScript"
+          />
+        </map>
+        <Image
+          width={340}
+          height={38}
+          useMap="#infographic"
+          src="/fondo-lowabv.png"
+          alt="MDN infographic"
+        />
+        <StartJob handleClick={handleClick}/>
         <Image
           className="dark:invert"
           src="/next.svg"
