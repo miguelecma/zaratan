@@ -1,11 +1,8 @@
 "use client"
 import Image from "next/image";
 import StartJob from "./components/StartJob";
-import {startBackgroundJob} from "./actions";
-
 
 export default function Home() {
-  const handleClick = async () => await startBackgroundJob();
 
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -37,7 +34,7 @@ export default function Home() {
           src="/fondo-lowabv.png"
           alt="MDN infographic"
         />
-        <StartJob handleClick={handleClick}/>
+        <StartJob />
         <Image
           className="dark:invert"
           src="/next.svg"
