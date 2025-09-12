@@ -1,9 +1,7 @@
 "use client";
 import Image from "next/image";
-import StartJob from "./components/StartJob";
 import { Card, CardProps } from "./components/Card";
 import data from "./mockdata.json";
-import { Navbar } from "./components/Navbar";
 
 export default function Home() {
   return (
@@ -48,7 +46,6 @@ export default function Home() {
             </li>
           ))}
         </ul>
-        <StartJob />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a

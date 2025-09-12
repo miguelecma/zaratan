@@ -9,7 +9,7 @@ export function Navbar() {
         </a>
 
         <div className="block md:w-auto" id="navbar-multi-level">
-          <ul className="flex flex-wrap items-center font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="flex flex-wrap items-center justify-between w-full font-medium md:space-x-8 min-w-56 ">
             <li>
               <a
                 href="/#menu"
@@ -34,7 +34,7 @@ const CartButton = () => {
   return (
     <a
       href="/order"
-      className="relative inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      className="relative inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-sm hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
       <svg
         className="w-4 h-4 me-2"

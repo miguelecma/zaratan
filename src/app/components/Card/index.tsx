@@ -1,3 +1,5 @@
+import Quantifier from "../Quantifier";
+
 export type CardProps = {
   name: string;
   description: string;
@@ -24,6 +26,7 @@ export function Card(items: CardProps) {
         <button type="button" className="btn btn-primary dark:text-gray-100">
           Agregar
         </button>
+        <Quantifier />
       </div>
     </div>
   );
