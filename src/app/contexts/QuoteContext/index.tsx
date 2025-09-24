@@ -1,3 +1,4 @@
+"use client"
 import { contextFactory } from '../ContextFactory';
 
 import { type QuoteState, type Action, INITIAL_STATE } from './reducer';

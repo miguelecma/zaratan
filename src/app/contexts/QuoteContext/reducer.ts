@@ -1,28 +1,40 @@
-import { type FormEntry, type ClientQuote } from "@/app/types/clientQuote";
+import {
+  type FormEntry,
+  type ClientQuote,
+  QuoteItem,
+} from "@/app/types/clientQuote";
 
-const getPriceState = (_a: any, _b: any) => {} //TODO
+const getPriceState = (_a: any, _b: any) => {}; //TODO
 
 const STEP_NUMBER = "STEP_NUMBER";
 
-export interface QuoteState {
+export type QuoteState = {
   [STEP_NUMBER]: number;
   form: FormEntry; //TODO: define the type for quote, update form type
   quote: ClientQuote[];
-}
+};
 
 //TODO: define the type for quote, update form type
 export const INITIAL_STATE: QuoteState = {
   [STEP_NUMBER]: 0,
   form: {
-    fieldID: '',
-    fieldValue: '',
+    fieldID: "",
+    fieldValue: "",
   },
-  quote: [],
+  quote: [
+    {
+      items: [],
+      detail: null,
+    },
+  ],
 };
 
 export enum ActionsTypes {
   SET_STEP_NUMBER = "SET_STEP_NUMBER",
   SET_FORM = "SET_FORM",
+  ADD_ONE = "ADD_ONE",
+  DELETE_ONE = "DELETE_ONE",
+  DELETE_ALL_ITEMS = "DELETE_ALL_ITEMS",
   SET_RULE_1 = "SET_RULE_1",
 }
 
@@ -41,7 +53,15 @@ interface SetRule1 {
   payload: FormEntry | null;
 }
 
-export type Action = SetStepNumber | SetForm | SetRule1;
+interface SetQuantity {
+  type:
+    | ActionsTypes.ADD_ONE
+    | ActionsTypes.DELETE_ONE
+    | ActionsTypes.DELETE_ALL_ITEMS;
+  payload: string;
+}
+
+export type Action = SetStepNumber | SetForm | SetRule1 | SetQuantity;
 
 export const actionCreators = {
   setStepNumber: (step: number): SetStepNumber => ({
@@ -56,21 +76,121 @@ export const actionCreators = {
     type: ActionsTypes.SET_RULE_1,
     payload: data,
   }),
+  increment: (itemId: string): SetQuantity => ({
+    type: ActionsTypes.ADD_ONE,
+    payload: itemId,
+  }),
+  decrement: (itemId: string): SetQuantity => ({
+    type: ActionsTypes.DELETE_ONE,
+    payload: itemId,
+  }),
+  deleteAllItems: (itemId: string): SetQuantity => ({
+    type: ActionsTypes.DELETE_ALL_ITEMS,
+    payload: itemId,
+  }),
 };
 
-export const reducer = (state: QuoteState, action: Action): QuoteState => {  
+export const reducer = (state: QuoteState, action: Action): QuoteState => {
   switch (action.type) {
     case ActionsTypes.SET_STEP_NUMBER: {
       return { ...state, [STEP_NUMBER]: action.payload };
     }
     case ActionsTypes.SET_FORM: {
-      const {fieldID, fieldValue} = action.payload;
-      
+      const { fieldID, fieldValue } = action.payload;
+
       // It'll call the rules each time I use the state
-      return { 
+      return {
         ...state,
         form: { ...state.form, fieldID, fieldValue },
-        quote: [...state.quote ]
+        quote: [...state.quote],
+      };
+    }
+    // Always edit the first order by now
+    case ActionsTypes.ADD_ONE: {
+      const { payload } = action;
+      let newClientQuote = [...state.quote];
+
+      if (newClientQuote[0].items?.length === 0) {
+        const item: QuoteItem = {
+          id: payload,
+        };
+        const clientQuote = {
+          items: [item],
+          detail: null,
+        };
+        newClientQuote = [clientQuote];
+      } else {
+        const newQuote = { ...newClientQuote[0] };
+        const item: QuoteItem = {
+          id: payload,
+        };
+        newQuote.items = [...newClientQuote[0].items, item];
+        newClientQuote = [newQuote];
+      }
+
+      // It'll call the rules each time I use the state
+      return {
+        ...state,
+        quote: newClientQuote,
+      };
+    }
+    case ActionsTypes.DELETE_ONE: {
+      const { payload } = action; // assuming payload is the id (string | number)
+      let newClientQuote = [...state.quote];
+
+      if (newClientQuote.length === 0 || !newClientQuote[0].items) {
+        // Nothing to remove
+        return state;
+      }
+
+      const currentQuote = { ...newClientQuote[0] };
+      const items = [...currentQuote.items];
+
+      const indexToRemove = items.findIndex((item) => item.id === payload);
+
+      if (indexToRemove === -1) {
+        // No match found, nothing to remove
+        return state;
+      }
+
+      // Remove only one match
+      items.splice(indexToRemove, 1);
+
+      currentQuote.items = items;
+      newClientQuote = [currentQuote];
+
+      console.log(newClientQuote, state);
+
+      return {
+        ...state,
+        quote: newClientQuote,
+      };
+    }
+    case ActionsTypes.DELETE_ALL_ITEMS: {
+      const { payload } = action;
+      let newClientQuote = [...state.quote];
+
+      if (newClientQuote[0].items?.length === 0) {
+        const item: QuoteItem = {
+          id: payload,
+        };
+        const clientQuote = {
+          items: [item],
+          detail: null,
+        };
+        newClientQuote = [clientQuote];
+      } else {
+        const newQuote = { ...newClientQuote[0] };
+        const item: QuoteItem = {
+          id: payload,
+        };
+        newQuote.items = [...newClientQuote[0].items, item];
+        newClientQuote = [newQuote];
+      }
+      // It'll call the rules each time I use the state
+      return {
+        ...state,
+        quote: newClientQuote,
       };
     }
     case ActionsTypes.SET_RULE_1: {
@@ -84,9 +204,9 @@ export const reducer = (state: QuoteState, action: Action): QuoteState => {
         items: [],
         detail: {
           total: myRule,
-          net: Math.floor(myRule * (1+IVA)),
-        }
-      }
+          net: Math.floor(myRule * (1 + IVA)),
+        },
+      };
       return {
         ...state,
         quote: {

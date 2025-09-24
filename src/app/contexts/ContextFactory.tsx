@@ -1,3 +1,4 @@
+"use client"
 import { createContext, useContext } from "react";
 
 export const contextFactory = <State, Action>(initialState: State) => {
@@ -6,7 +7,7 @@ export const contextFactory = <State, Action>(initialState: State) => {
     dispatch: (action: Action) => {},
   });
 
-  const useSelector = (selector: (arg: State) => any) => {
+  const useSelector = (selector: (arg: State)  => any ) => {
     const { state } = useContext(Context);
     return selector(state);
   };

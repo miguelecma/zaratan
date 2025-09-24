@@ -15,6 +15,6 @@ export type FormEntry = {
 export type QuoteItem = Record<string, FieldValueType>
 
 export type ClientQuote = {
-  items: null | QuoteItem[];
+  items: QuoteItem[];
   detail: QuoteItem | null;
 };

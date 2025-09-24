@@ -3,6 +3,7 @@ import StartJob from "@/app/components/StartJob";
 export default async function Page() {
   return (
     <main>
+      <aside></aside>
       <StartJob />
       <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-8 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex items-center justify-between mb-4">

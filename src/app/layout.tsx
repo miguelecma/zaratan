@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "./components/Navbar";
+import { QuoteProvider } from "@/app/contexts/QuoteContext/Provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,10 +29,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="relative min-h-20">
-          <Navbar />
-        </div>
-        {children}
+        <QuoteProvider>
+          <div className="relative min-h-20">
+            <Navbar />
+          </div>
+          {children}
+        </QuoteProvider>
       </body>
     </html>
   );

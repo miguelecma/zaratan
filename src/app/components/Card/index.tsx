@@ -1,9 +1,10 @@
-import Quantifier from "../Quantifier";
+import Quantifier from "@/app/components/Quantifier";
 
 export type CardProps = {
   name: string;
   description: string;
   price: number;
+  id: string;
 };
 
 const getNumberFormat = (price: number) =>
@@ -12,7 +13,7 @@ const getNumberFormat = (price: number) =>
   );
 
 export function Card(items: CardProps) {
-  const { name, description, price } = items;
+  const { name, description, price, id } = items;
   return (
     <div className="card flex flex-col justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
       <div>
@@ -23,10 +24,7 @@ export function Card(items: CardProps) {
       </div>
 
       <div className="justify-end">
-        <button type="button" className="btn btn-primary dark:text-gray-100">
-          Agregar
-        </button>
-        <Quantifier />
+        <Quantifier cardId={id}/>
       </div>
     </div>
   );
