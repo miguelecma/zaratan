@@ -1,5 +1,5 @@
 import StartJob from "@/app/_components/StartJob";
-import { Order } from "../_components/Order";
+import { Order } from "@/app/_components/Order";
 
 export default async function Page() {
   return (

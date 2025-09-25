@@ -1,5 +1,3 @@
-"use client";
-
 import { type QuoteItem } from "@/app/_types/clientQuote";
 /**
  * Encode part of the state to a URL-safe hash string

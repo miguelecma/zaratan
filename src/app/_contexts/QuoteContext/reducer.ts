@@ -15,7 +15,8 @@ export type QuoteState = {
   quote: ClientQuote[];
 };
 
-const initialQuote = decodeHashToState();
+const objectWindowExists = typeof window !== 'undefined';
+const initialQuote = objectWindowExists ? decodeHashToState() : [];
 //TODO: define the type for quote, update form type
 export const INITIAL_STATE: QuoteState = {
   [STEP_NUMBER]: 0,
