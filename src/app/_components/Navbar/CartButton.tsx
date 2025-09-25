@@ -1,7 +1,8 @@
 "use client";
-import { useSelector } from "@/app/contexts/QuoteContext/index";
-import { type QuoteState } from "@/app/contexts/QuoteContext/reducer";
-import { type ClientQuote } from "@/app/types/clientQuote";
+
+import { useSelector } from "@/app/_contexts/QuoteContext/index";
+import { type QuoteState } from "@/app/_contexts/QuoteContext/reducer";
+import { type ClientQuote } from "@/app/_types/clientQuote";
 
 export const CartButton = () => {
   const clientQuote: ClientQuote = useSelector(
@@ -9,9 +10,11 @@ export const CartButton = () => {
   );
   const quotes = clientQuote.items?.length || "-";
 
+
+  
   return (
     <a
-      href="/order"
+      href={`/order?o=${encodeURIComponent(JSON.stringify(clientQuote.items))}`}
       className="relative inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-sm hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
       <svg

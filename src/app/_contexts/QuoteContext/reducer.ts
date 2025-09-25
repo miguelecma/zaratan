@@ -2,7 +2,8 @@ import {
   type FormEntry,
   type ClientQuote,
   QuoteItem,
-} from "@/app/types/clientQuote";
+} from "@/app/_types/clientQuote";
+import { syncStateToHash, decodeHashToState } from "@/app/_utils/stateHash";
 
 const getPriceState = (_a: any, _b: any) => {}; //TODO
 
@@ -14,6 +15,7 @@ export type QuoteState = {
   quote: ClientQuote[];
 };
 
+const initialQuote = decodeHashToState();
 //TODO: define the type for quote, update form type
 export const INITIAL_STATE: QuoteState = {
   [STEP_NUMBER]: 0,
@@ -23,7 +25,7 @@ export const INITIAL_STATE: QuoteState = {
   },
   quote: [
     {
-      items: [],
+      items: [...initialQuote],
       detail: null,
     },
   ],
@@ -129,6 +131,7 @@ export const reducer = (state: QuoteState, action: Action): QuoteState => {
       }
 
       // It'll call the rules each time I use the state
+      syncStateToHash(newClientQuote[0].items);
       return {
         ...state,
         quote: newClientQuote,
@@ -159,8 +162,7 @@ export const reducer = (state: QuoteState, action: Action): QuoteState => {
       currentQuote.items = items;
       newClientQuote = [currentQuote];
 
-      console.log(newClientQuote, state);
-
+      syncStateToHash(newClientQuote[0].items);
       return {
         ...state,
         quote: newClientQuote,
@@ -170,24 +172,19 @@ export const reducer = (state: QuoteState, action: Action): QuoteState => {
       const { payload } = action;
       let newClientQuote = [...state.quote];
 
-      if (newClientQuote[0].items?.length === 0) {
-        const item: QuoteItem = {
-          id: payload,
-        };
-        const clientQuote = {
-          items: [item],
-          detail: null,
-        };
-        newClientQuote = [clientQuote];
-      } else {
-        const newQuote = { ...newClientQuote[0] };
-        const item: QuoteItem = {
-          id: payload,
-        };
-        newQuote.items = [...newClientQuote[0].items, item];
-        newClientQuote = [newQuote];
+      if (newClientQuote.length === 0 || !newClientQuote[0].items) {
+        // Nothing to remove
+        return state;
       }
+
+      const currentQuote = { ...newClientQuote[0] };
+      currentQuote.items = currentQuote.items.filter(
+        (item) => item.id !== payload
+      );
+      newClientQuote = [currentQuote];
+
       // It'll call the rules each time I use the state
+      syncStateToHash(newClientQuote[0].items); 
       return {
         ...state,
         quote: newClientQuote,

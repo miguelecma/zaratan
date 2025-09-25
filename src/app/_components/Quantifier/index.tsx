@@ -1,8 +1,8 @@
-import { useSelector } from "@/app/contexts/QuoteContext/index";
-import { type ClientQuote } from "@/app/types/clientQuote";
-import { type QuoteState } from "@/app/contexts/QuoteContext/reducer";
-import { useDispatch } from "@/app/contexts/QuoteContext/index";
-import { actionCreators } from "@/app/contexts/QuoteContext/reducer";
+import { useSelector } from "@/app/_contexts/QuoteContext/index";
+import { type ClientQuote } from "@/app/_types/clientQuote";
+import { type QuoteState } from "@/app/_contexts/QuoteContext/reducer";
+import { useDispatch } from "@/app/_contexts/QuoteContext/index";
+import { actionCreators } from "@/app/_contexts/QuoteContext/reducer";
 
 export default function Quantifier({ cardId }: { cardId: string }) {
   const clientQuote: ClientQuote = useSelector(

@@ -1,4 +1,4 @@
-import Quantifier from "@/app/components/Quantifier";
+import Quantifier from "@/app/_components/Quantifier";
 
 export type CardProps = {
   name: string;

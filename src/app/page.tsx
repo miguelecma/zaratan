@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Card, CardProps } from "./components/Card";
+import { Card, CardProps } from "./_components/Card";
 import data from "./mockdata.json";
 
 export default function Home() {
