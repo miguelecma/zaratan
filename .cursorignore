@@ -1,0 +1,46 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Build output
+.next/
+out/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
+*.code-workspace
+
+# Test coverage
+coverage/
+
+# Misc
+dist/
+*.log
+*.tmp
+*.swp
+
+# Cursor-specific (if needed)
+.cursor/
+
+# Ignore public static files if you don't want AI suggestions from them
+public/
