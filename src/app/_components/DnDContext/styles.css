@@ -1,0 +1,5 @@
+.virtual-list {
+  > div {
+    overflow: hidden;
+  }
+}
