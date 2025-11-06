@@ -4,7 +4,7 @@ import { type QuoteState } from "@/app/_contexts/QuoteContext/reducer";
 import { type QuoteItem } from "@/app/_types/clientQuote";
 import data from "@/app/mockdata.json";
 
-const enrichOrderWithPricesCombined = (orderItems: { id: string }[], mockData: any[]) => {
+export const enrichOrderWithPricesCombined = (orderItems: { id: string }[], mockData: any[]) => {
   // First group by id and count quantities
   const grouped = orderItems.reduce((acc, item) => {
     acc[item.id] = (acc[item.id] || 0) + 1;

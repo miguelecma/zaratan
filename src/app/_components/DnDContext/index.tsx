@@ -10,7 +10,6 @@ export const DnDContext = () => {
   
   const handleDragEnd = (event: any) => {
     const { over } = event;
-console.log(over);
     // If the item is dropped over a container, set it as the parent
     // otherwise reset the parent to `null`
     setParent(over ? over.id : 'null');
