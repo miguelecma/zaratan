@@ -30,8 +30,8 @@ export const syncStateToHash = (state: QuoteItem[]) => {
   const stateString = JSON.stringify(state);
 
   const params = new URLSearchParams(window.location.search);
-  params.set('o', encodeURIComponent(stateString));
-
+  
   const newUrl = `${window.location.pathname}?${params.toString()}`;
-  window.history.replaceState(null, '', newUrl);
+  //window.history.replaceState(null, '', newUrl);
+  params.set('o', encodeURIComponent(stateString));
 };

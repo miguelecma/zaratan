@@ -32,10 +32,10 @@ export const Order = () => {
       className="divide-y divide-gray-200 dark:divide-gray-700"
     >
       {itemsWithPrices.map((item: QuoteItem) => (
-        <li className="py-3 sm:py-4">
+        <li className="py-3 sm:py-4" key={item.id as string}>
           <div className="flex items-center">
             <div className="shrink-0">
-              <div className="w-8 h-8 rounded-full">°🥂⋆˚࿔</div>
+              <p className="w-8 h-8 rounded-full">°🥂⋆˚࿔</p>
             </div>
             <div className="flex-1 min-w-0 ms-4">
               <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
