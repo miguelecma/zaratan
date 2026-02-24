@@ -34,3 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Deploy on Cloudflare
+
+This project is also configured to deploy on Cloudflare Workers using `@opennextjs/cloudflare` and Wrangler.
+
+- **Build & deploy**
+  - `npm run deploy` builds the app with `next build` and deploys via the OpenNext Cloudflare adapter.
+- **QStash webhook**
+  - Point your QStash integration to `${APP_URL}/api/register` (for example, `https://zaratan.yourdomain.com/api/register`).
+- **Supabase**
+  - Set your Supabase Site URL and allowed redirect URLs to match `APP_URL` (for example, `https://zaratan.yourdomain.com`).
+
+See `wrangler.jsonc`, `.env.example`, and `.dev.vars` for environment configuration.
