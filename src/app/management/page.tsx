@@ -1,33 +1,21 @@
-//import dynamic from 'next/dynamic';
-import { DnDContext } from "@/app/_components/DnDContext";
-import VirtualList from '@/app/_components/DnDContext/VirtualList';
-import { getLogs } from '../actions';
+import KanbanBoard from '@/app/_components/Kanban/KanbanBoard';
+import { getAllOrders } from '@/app/orders/actions';
 
-//const VirtualList = dynamic(() => import('@/app/_components/DnDContext/VirtualList'), {
-//  ssr: false,
-//});
+export default async function Page() {
+  const result = await getAllOrders();
+  const orders = result.orders || [];
 
-
-export default function Page() {
-  const logs = getLogs();
   return (
-    <main>
-      <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <div className="flex items-center justify-between mb-4">
-          <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
-            Latest Orders
-          </h5>
-          <a
-            href="#"
-            className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
-          >
-            View all
-          </a>
+    <main className="min-h-screen bg-gray-50">
+      <div className="p-6">
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-gray-900">Order Management</h1>
+          <p className="text-gray-600 mt-2">
+            Drag and drop orders between columns to update their status
+          </p>
         </div>
-        <div className="grid grid-cols-3 gap-4">
-          <DnDContext />
-        </div>
-        <VirtualList messagePromise={logs}/>
+        
+        <KanbanBoard initialOrders={orders} />
       </div>
     </main>
   );
